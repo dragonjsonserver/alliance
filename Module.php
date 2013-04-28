@@ -59,7 +59,7 @@ class Module
 	    			throw new \DragonJsonServer\Exception('missing avatar');
 	    		}
 	    		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
-	    		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarId($avatar->getAvatarId());
+	    		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatar($avatar);
 	    		$serviceAllianceavatar->setAllianceavatar($allianceavatar);
 	    		if (null === $annotation->value) {
 	    			return;
@@ -84,7 +84,7 @@ class Module
 	    		if (null === $avatar) {
 	    			throw new \DragonJsonServer\Exception('missing avatar');
 	    		}
-	    		$allianceavatar = $serviceManager->get('Allianceavatar')->getAllianceavatarByAvatarId($avatar->getAvatarId(), false);
+	    		$allianceavatar = $serviceManager->get('Allianceavatar')->getAllianceavatarByAvatar($avatar, false);
 	    		if (null === $allianceavatar) {
 	    			return;
 	    		}

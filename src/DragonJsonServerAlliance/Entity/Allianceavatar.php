@@ -18,7 +18,7 @@ class Allianceavatar
 {
 	use \DragonJsonServerDoctrine\Entity\ModifiedTrait;
 	use \DragonJsonServerDoctrine\Entity\CreatedTrait;
-	use \DragonJsonServerAvatar\Entity\AvatarIdTrait;
+	use \DragonJsonServerAvatar\Entity\AvatarTrait;
 	use \DragonJsonServerAlliance\Entity\AllianceIdTrait;
 	
 	/**
@@ -72,7 +72,7 @@ class Allianceavatar
 			'allianceavatar_id' => $this->getAllianceavatarId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),
-			'avatar_id' => $this->getAvatarId(),
+			'avatar' => $this->getAvatar()->toArray(),
 			'alliance_id' => $this->getAllianceId(),
 			'role' => $this->getRole(),
 		];

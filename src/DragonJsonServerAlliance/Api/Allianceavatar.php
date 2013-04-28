@@ -58,8 +58,8 @@ class Allianceavatar
 		$serviceManager = $this->getServiceManager();
 
 		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
-		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarIdAndAllianceId(
-			$other_avatar_id,
+		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarAndAllianceId(
+			$serviceManager->get('Avatar')->getAvatarByAvatarId($other_avatar_id),
 			$serviceAllianceavatar->getAllianceavatar()->getAllianceId()
 		);
 		$serviceAllianceavatar->removeAllianceavatar($allianceavatar);
@@ -127,8 +127,8 @@ class Allianceavatar
 			throw new \DragonJsonServer\Exception('invalid role', ['role' => $role, 'roles' => $roles]);			
 		}
 		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
-		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarIdAndAllianceId(
-			$other_avatar_id,
+		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarAndAllianceId(
+			$serviceManager->get('Avatar')->getAvatarByAvatarId($other_avatar_id),
 			$serviceAllianceavatar->getAllianceavatar()->getAllianceId()
 		);
 		$serviceAllianceavatar->changeRole($allianceavatar, $role);

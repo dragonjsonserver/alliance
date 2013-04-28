@@ -35,7 +35,7 @@ class Allianceavatar
 										 $role)
 	{
 		$allianceavatar = (new \DragonJsonServerAlliance\Entity\Allianceavatar())
-			->setAvatarId($avatar->getAvatarId())
+			->setAvatar($avatar)
 			->setAllianceId($alliance->getAllianceId())
 			->setRole($role);
 		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($alliance, $allianceavatar) {
@@ -94,37 +94,36 @@ class Allianceavatar
 	
 	/**
 	 * Gibt die Allianzbeziehung mit der übergebenen AvatarID zurück
-	 * @param integer $avatar_id
+	 * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
 	 * @param boolean $throwException
 	 * @return \DragonJsonServerAlliance\Entity\Allianceavatar|null
      * @throws \DragonJsonServer\Exception
 	 */
-	public function getAllianceavatarByAvatarId($avatar_id, $throwException = true)
+	public function getAllianceavatarByAvatar($avatar, $throwException = true)
 	{
 		$entityManager = $this->getEntityManager();
 
-		$conditions = ['avatar_id' => $avatar_id];
 		$allianceavatar = $entityManager
 			->getRepository('\DragonJsonServerAlliance\Entity\Allianceavatar')
-		    ->findOneBy($conditions);
+		    ->findOneBy(['avatar' => $avatar]);
 		if (null === $allianceavatar && $throwException) {
-			throw new \DragonJsonServer\Exception('invalid avatar_id', $conditions);
+			throw new \DragonJsonServer\Exception('invalid avatar', ['avatar' => $avatar->toArray()]);
 		}
 		return $allianceavatar;
 	}
 	
 	/**
 	 * Gibt die Allianzbeziehung mit der AvatarID und AllianceID zurück
-	 * @param integer $avatar_id
+	 * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
 	 * @param integer $alliance_id
 	 * @return \DragonJsonServerAlliance\Entity\Allianceavatar
      * @throws \DragonJsonServer\Exception
 	 */
-	public function getAllianceavatarByAvatarIdAndAllianceId($avatar_id, $alliance_id)
+	public function getAllianceavatarByAvatarAndAllianceId(\DragonJsonServerAvatar\Entity\Avatar $avatar, $alliance_id)
 	{
 		$entityManager = $this->getEntityManager();
 		
-		$allianceavatar = $this->getAllianceavatarByAvatarId($avatar_id);
+		$allianceavatar = $this->getAllianceavatarByAvatar($avatar);
 		if ($alliance_id != $allianceavatar->getAllianceId()) {
 			throw new \DragonJsonServer\Exception(
 				'alliance_id not match',
