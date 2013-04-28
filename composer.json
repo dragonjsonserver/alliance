@@ -1,0 +1,30 @@
+{
+    "name": "dragonprojects/dragonjsonserveralliance",
+    "description": "Erweiterung für den DragonJsonServer zur Verwaltung von Allianzen",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Christoph Herrmann",
+            "email": "developer@dragonprojects.de",
+            "homepage": "http://dragonjsonserver.de/",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "http://dragonjsonserver.de/",
+    "require": {
+        "php": ">=5.4.0",
+        "zendframework/zendframework": "2.*",
+        "dragonprojects/dragonjsonserver": "dev-master",
+        "dragonprojects/dragonjsonserverapiannotation": "dev-master",
+        "dragonprojects/dragonjsonserverdoctrine": "dev-master",
+        "dragonprojects/dragonjsonserveravatar": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "DragonJsonServerAlliance": "src/"
+        },
+        "classmap": [
+            "Module.php"
+        ]
+    }
+}
