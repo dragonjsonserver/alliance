@@ -66,6 +66,20 @@ class Allianceavatar
 	}
 	
 	/**
+	 * Gibt die Allianzbeziehung für die Allianz des aktuellen Avatar zurück
+	 * @return array
+	 * @DragonJsonServerAccount\Annotation\Session
+	 * @DragonJsonServerAvatar\Annotation\Avatar
+	 * @DragonJsonServerAlliance\Annotation\Alliance
+	 */
+	public function getAllianceavatar()
+	{
+		$serviceManager = $this->getServiceManager();
+		
+		return $serviceManager->get('Allianceavatar')->getAllianceavatar()->toArray();
+	}
+	
+	/**
 	 * Gibt die Allianzbeziehungen für die Allianz des aktuellen Avatar zurück
 	 * @return array
 	 * @DragonJsonServerAccount\Annotation\Session
