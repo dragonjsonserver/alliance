@@ -21,6 +21,7 @@ class Alliance
     /**
 	 * Validiert den übergebenen Tag
 	 * @param string $tag
+	 * @return Alliance
      * @throws \DragonJsonServer\Exception
 	 */
 	public function validateTag($tag)
@@ -39,11 +40,13 @@ class Alliance
 				['tag' => $tag, 'taglength' => $taglength]
 			);
 		}
+		return $this;
 	}
 	
     /**
 	 * Validiert den übergebenen Namen
 	 * @param string $name
+	 * @return Alliance
      * @throws \DragonJsonServer\Exception
 	 */
 	public function validateName($name)
@@ -62,6 +65,7 @@ class Alliance
 				['name' => $name, 'namelength' => $namelength]
 			);
 		}
+		return $this;
 	}
 	
 	/**
