@@ -24,6 +24,33 @@ class Allianceavatar
 	protected $allianceavatar;
 	
 	/**
+	 * Validiert die Allianz auf einen zweiten Leader
+	 * @param \DragonJsonServerAlliance\Entity\Allianceavatar $allianceavatar
+	 * @return boolean
+	 * @throws \DragonJsonServer\Exception
+	 */
+	public function validateSecondLeader(\DragonJsonServerAlliance\Entity\Allianceavatar $allianceavatar, $throwException = true)
+	{
+		if ('leader' != $allianceavatar->getRole()) {
+			return true;
+		}
+		$allianceavatars = $this->getAllianceavatarsByAllianceId($allianceavatar->getAllianceId());
+		foreach ($allianceavatars as $other_allianceavatar) {
+			if ('leader' == $other_allianceavatar->getRole()
+				&& $other_allianceavatar->getAvatar()->getAvatarId() != $allianceavatar->getAvatar()->getAvatarId()) {
+				return true;
+			}
+		}
+		if ($throwException) {
+			throw new \DragonJsonServer\Exception(
+				'missing second leader',
+				['allianceavatar' => $allianceavatar->toArray()]
+			);
+		}
+		return false;
+	}
+	
+	/**
 	 * Erstellt eine Allianzbeziehung mit der übergebenen Rolle
 	 * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
 	 * @param \DragonJsonServerAlliance\Entity\Alliance $alliance

@@ -42,8 +42,10 @@ class Allianceavatar
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$allianceavatar = $serviceManager->get('Allianceavatar')->getAllianceavatar();
-		$serviceManager->get('Allianceavatar')->removeAllianceavatar($allianceavatar);
+		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
+		$allianceavatar = $serviceAllianceavatar->getAllianceavatar();
+		$serviceAllianceavatar->validateSecondLeader($allianceavatar);
+		$serviceAllianceavatar->removeAllianceavatar($allianceavatar);
 	}
 	
 	/**
@@ -58,11 +60,18 @@ class Allianceavatar
 		$serviceManager = $this->getServiceManager();
 
 		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
-		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarAndAllianceId(
-			$serviceManager->get('Avatar')->getAvatarByAvatarId($other_avatar_id),
-			$serviceAllianceavatar->getAllianceavatar()->getAllianceId()
+		$allianceavatar = $serviceAllianceavatar->getAllianceavatar();
+		if ($allianceavatar->getAvatarId() == $other_avatar_id) {
+			throw new \DragonJsonServer\Exception(
+					'avatar_id must not match with other_avatar_id',
+					['allianceavatar' => $allianceavatar->toArray(), 'other_avatar_id' => $other_avatar_id]
+			);
+		}
+		$other_allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarAndAllianceId(
+				$serviceManager->get('Avatar')->getAvatarByAvatarId($other_avatar_id),
+				$allianceavatar->getAllianceId()
 		);
-		$serviceAllianceavatar->removeAllianceavatar($allianceavatar);
+		$serviceAllianceavatar->removeAllianceavatar($other_allianceavatar);
 	}
 	
 	/**
@@ -141,10 +150,11 @@ class Allianceavatar
 			throw new \DragonJsonServer\Exception('invalid role', ['role' => $role, 'roles' => $roles]);			
 		}
 		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
-		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarAndAllianceId(
-			$serviceManager->get('Avatar')->getAvatarByAvatarId($other_avatar_id),
-			$serviceAllianceavatar->getAllianceavatar()->getAllianceId()
+		$other_allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatarAndAllianceId(
+				$serviceManager->get('Avatar')->getAvatarByAvatarId($other_avatar_id),
+				$serviceAllianceavatar->getAllianceavatar()->getAllianceId()
 		);
-		$serviceAllianceavatar->changeRole($allianceavatar, $role);
+		$serviceAllianceavatar->validateSecondLeader($other_allianceavatar);
+		$serviceAllianceavatar->changeRole($other_allianceavatar, $role);
 	}
 }
