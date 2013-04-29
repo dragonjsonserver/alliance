@@ -94,5 +94,22 @@ class Module
 	    		);
 	    	}
     	);
+		$sharedManager->attach('DragonJsonServerAvatar\Service\Avatar', 'removeavatar',
+			function (\DragonJsonServerAvatar\Event\RemoveAvatar $eventRemoveAvatar) {
+				$serviceManager = $this->getServiceManager();
+				$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
+				$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatar($eventRemoveAvatar->getAvatar(), false);
+				if (null === $allianceavatar) {
+					return;
+				}
+				if ($serviceAllianceavatar->validateSecondLeader($allianceavatar, false)) {
+					$serviceAllianceavatar->removeAllianceavatar($allianceavatar);
+				} else {
+					$serviceAlliance = $serviceManager->get('Alliance');
+					$alliance = $serviceAlliance->getAllianceByAllianceId($allianceavatar->getAllianceId());
+					$serviceAlliance->removeAlliance($alliance);
+				}
+			}
+		);
     }
 }
