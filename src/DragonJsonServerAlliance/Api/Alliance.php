@@ -29,8 +29,9 @@ class Alliance
 		$serviceManager = $this->getServiceManager();
 
 		$serviceAlliance = $serviceManager->get('Alliance');
-		$serviceAlliance->validateTag($tag);
-		$serviceAlliance->validateName($name);
+		$serviceAlliance
+			->validateTag($tag)
+			->validateName($name);
 		$avatar = $serviceManager->get('Avatar')->getAvatar();
 		$alliance = $serviceAlliance->getAllianceByGameroundIdAndTagOrName($avatar->getGameroundId(), $tag, $name, false);
 		if (null !== $alliance) {
