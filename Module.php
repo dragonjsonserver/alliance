@@ -61,16 +61,21 @@ class Module
 	    		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
 	    		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatar($avatar);
 	    		$serviceAllianceavatar->setAllianceavatar($allianceavatar);
-	    		if (null === $annotation->value) {
-	    			return;
+	    		$role = $allianceavatar->getRole();
+	    		$roles = $annotation->getRoles();
+	    		if (null !== $roles && !in_array($role, $roles)) {
+		    		throw new \DragonJsonServer\Exception(
+		    			'invalid role', 
+		    			['allianceavatar' => $allianceavatar->toArray(), 'roles' => $roles]
+		    		);
 	    		}
-	    		if (in_array($allianceavatar->getRole(), $annotation->value)) {
-		    		return;
+	    		$notroles = $annotation->getNotroles();
+	    		if (in_array($role, $notroles)) {
+		    		throw new \DragonJsonServer\Exception(
+		    			'invalid role', 
+		    			['allianceavatar' => $allianceavatar->toArray(), 'notroles' => $notroles]
+		    		);
 	    		}
-	    		throw new \DragonJsonServer\Exception(
-	    			'invalid role', 
-	    			['allianceavatar' => $allianceavatar->toArray(), 'annotation' => $annotation->value]
-	    		);
 	    	}
     	);
     	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'request', 
