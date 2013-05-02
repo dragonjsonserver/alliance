@@ -182,7 +182,7 @@ class Alliance
 					)
 			')
 			->execute($conditions);
-		if (count($alliances) == 0) {
+		if (0 == count($alliances)) {
 			if ($throwException) {
 				throw new \DragonJsonServer\Exception('invalid gameround_id, tag or name', $conditions);
 			}
