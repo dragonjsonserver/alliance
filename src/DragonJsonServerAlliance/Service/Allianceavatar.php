@@ -140,7 +140,7 @@ class Allianceavatar
 	}
 	
 	/**
-	 * Gibt die Allianzbeziehung mit der AvatarID und AllianceID zurück
+	 * Gibt die Allianzbeziehung mit dem Avatar und AllianceID zurück
 	 * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
 	 * @param integer $alliance_id
 	 * @return \DragonJsonServerAlliance\Entity\Allianceavatar
