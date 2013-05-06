@@ -17,7 +17,7 @@ class CreateAllianceavatar extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'createallianceavatar';
+	protected $name = 'CreateAllianceavatar';
 
     /**
      * Setzt die Allianz der Allianzbeziehung der erstellt wurde

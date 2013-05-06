@@ -17,7 +17,7 @@ class CreateAlliance extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'createalliance';
+	protected $name = 'CreateAlliance';
 
     /**
      * Setzt die Allianz die erstellt wurde

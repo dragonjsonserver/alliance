@@ -17,7 +17,7 @@ class RemoveAlliance extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'removealliance';
+	protected $name = 'RemoveAlliance';
 
     /**
      * Setzt die Allianz die entfernt wird

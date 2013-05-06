@@ -17,7 +17,7 @@ class RemoveAllianceavatar extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'removeallianceavatar';
+	protected $name = 'RemoveAllianceavatar';
 
     /**
      * Setzt die Allianzbeziehung der entfernt wird

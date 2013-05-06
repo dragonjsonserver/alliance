@@ -17,7 +17,7 @@ class ChangeRole extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'changerole';
+	protected $name = 'ChangeRole';
 
     /**
      * Setzt die Allianzbeziehung dessen Rolle aktualisiert wird
