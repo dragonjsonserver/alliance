@@ -118,6 +118,7 @@ class Alliance
 	public function toArray()
 	{
 		return [
+			'entity' => 'Alliance',
 			'alliance_id' => $this->getAllianceId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),

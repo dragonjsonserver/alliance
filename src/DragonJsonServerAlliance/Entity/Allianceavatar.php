@@ -69,6 +69,7 @@ class Allianceavatar
 	public function toArray()
 	{
 		return [
+			'entity' => 'Allianceavatar',
 			'allianceavatar_id' => $this->getAllianceavatarId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),
