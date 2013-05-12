@@ -43,6 +43,17 @@ class Alliance
 	protected $description;
 	
 	/**
+	 * Setzt die ID der Allianz
+	 * @param integer $alliance_id
+	 * @return Alliance
+	 */
+	protected function setAllianceId($alliance_id)
+	{
+		$this->alliance_id = $alliance_id;
+		return $this;
+	}
+	
+	/**
 	 * Gibt die ID der Allianz zurück
 	 * @return integer
 	 */
@@ -112,13 +123,30 @@ class Alliance
 	}
 	
 	/**
-	 * Gibt die Attribute des Avatars als Array zurück
+	 * Setzt die Attribute der Allianz aus dem Array
+	 * @param array $array
+	 * @return Alliance
+	 */
+	public function fromArray(array $array)
+	{
+		return $this
+			->setAllianceId($array['alliance_id'])
+			->setModifiedTimestamp($array['modified'])
+			->setCreatedTimestamp($array['created'])
+			->setGameroundId($array['gameround_id'])
+			->setTag($array['tag'])
+			->setName($array['name'])
+			->setDescription($array['description']);
+	}
+	
+	/**
+	 * Gibt die Attribute der Allianz als Array zurück
 	 * @return array
 	 */
 	public function toArray()
 	{
 		return [
-			'entity' => 'Alliance',
+			'__className' => __CLASS__,
 			'alliance_id' => $this->getAllianceId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),

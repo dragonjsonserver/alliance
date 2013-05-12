@@ -34,6 +34,17 @@ class Allianceavatar
 	protected $role;
 	
 	/**
+	 * Setzt die ID der Allianzbeziehung
+	 * @param integer $allianceavatar_id
+	 * @return Allianceavatar
+	 */
+	protected function setAllianceavatarId($allianceavatar_id)
+	{
+		$this->allianceavatar_id = $allianceavatar_id;
+		return $this;
+	}
+	
+	/**
 	 * Gibt die ID der Allianzbeziehung zurück
 	 * @return integer
 	 */
@@ -63,13 +74,29 @@ class Allianceavatar
 	}
 	
 	/**
-	 * Gibt die Attribute des Avatars als Array zurück
+	 * Setzt die Attribute der Allianzbeziehung aus dem Array
+	 * @param array $array
+	 * @return Allianceavatar
+	 */
+	public function fromArray(array $array)
+	{
+		return $this
+			->setAllianceavatarId($array['allianceavatar_id'])
+			->setModifiedTimestamp($array['modified'])
+			->setCreatedTimestamp($array['created'])
+			->setAvatar((new \DragonJsonServerAvatar\Entity\Avatar())->fromArray($array['avatar']))
+			->setAllianceId($array['alliance_id'])
+			->setRole($array['role']);
+	}
+	
+	/**
+	 * Gibt die Attribute der Allianzbeziehung als Array zurück
 	 * @return array
 	 */
 	public function toArray()
 	{
 		return [
-			'entity' => 'Allianceavatar',
+			'__className' => __CLASS__,
 			'allianceavatar_id' => $this->getAllianceavatarId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),
