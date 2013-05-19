@@ -30,8 +30,8 @@ return [
 	],
 	'service_manager' => [
 		'invokables' => [
-            'Alliance' => '\DragonJsonServerAlliance\Service\Alliance',
-            'Allianceavatar' => '\DragonJsonServerAlliance\Service\Allianceavatar',
+            '\DragonJsonServerAlliance\Service\Alliance' => '\DragonJsonServerAlliance\Service\Alliance',
+            '\DragonJsonServerAlliance\Service\Allianceavatar' => '\DragonJsonServerAlliance\Service\Allianceavatar',
 		],
 	],
 	'doctrine' => [

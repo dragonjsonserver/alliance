@@ -28,11 +28,11 @@ class Alliance
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$serviceAlliance = $serviceManager->get('Alliance');
+		$serviceAlliance = $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance');
 		$serviceAlliance
 			->validateTag($tag)
 			->validateName($name);
-		$avatar = $serviceManager->get('Avatar')->getAvatar();
+		$avatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatar();
 		$alliance = $serviceAlliance->getAllianceByGameroundIdAndTagOrName($avatar->getGameroundId(), $tag, $name, false);
 		if (null !== $alliance) {
 			throw new \DragonJsonServer\Exception(
@@ -56,8 +56,8 @@ class Alliance
 		$this->validateTagAndName($tag, $name);
 		$serviceManager = $this->getServiceManager();
 
-		$avatar = $serviceManager->get('Avatar')->getAvatar();
-		return $serviceManager->get('Alliance')->createAlliance($avatar, $tag, $name)->toArray();
+		$avatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatar();
+		return $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance')->createAlliance($avatar, $tag, $name)->toArray();
 	}
 	
 	/**
@@ -70,10 +70,10 @@ class Alliance
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$allianceavatar = $serviceManager->get('Allianceavatar')->getAllianceavatar();
-		$serviceAlliance = $serviceManager->get('Alliance');
+		$allianceavatar = $serviceManager->get('\DragonJsonServerAlliance\Service\Allianceavatar')->getAllianceavatar();
+		$serviceAlliance = $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance');
 		$alliance = $serviceAlliance->getAllianceByAllianceId($allianceavatar->getAllianceId());
-		$serviceManager->get('Alliance')->removeAlliance($alliance);
+		$serviceAlliance->removeAlliance($alliance);
 	}
 	
 	/**
@@ -87,8 +87,8 @@ class Alliance
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$allianceavatar = $serviceManager->get('Allianceavatar')->getAllianceavatar();
-		return $serviceManager->get('Alliance')->getAllianceByAllianceId($allianceavatar->getAllianceId())->toArray();
+		$allianceavatar = $serviceManager->get('\DragonJsonServerAlliance\Service\Allianceavatar')->getAllianceavatar();
+		return $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance')->getAllianceByAllianceId($allianceavatar->getAllianceId())->toArray();
 	}
 	
 	/**
@@ -102,8 +102,8 @@ class Alliance
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$avatar = $serviceManager->get('Avatar')->getAvatar();
-		return $serviceManager->get('Alliance')
+		$avatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatar();
+		return $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance')
 			->getAllianceByAllianceIdAndGameroundId($alliance_id, $avatar->getGameroundId())->toArray();
 	}
 	
@@ -118,10 +118,10 @@ class Alliance
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$avatar = $serviceManager->get('Avatar')->getAvatar();
-		$alliances = $serviceManager->get('Alliance')
+		$avatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatar();
+		$alliances = $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance')
 			->searchAlliancesByGameroundIdAndTag($avatar->getGameroundId(), $tag);
-		return $serviceManager->get('Doctrine')->toArray($alliances);
+		return $serviceManager->get('\DragonJsonServerDoctrine\Service\Doctrine')->toArray($alliances);
 	}
 	
 	/**
@@ -135,10 +135,10 @@ class Alliance
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$avatar = $serviceManager->get('Avatar')->getAvatar();
-		$alliances = $serviceManager->get('Alliance')
+		$avatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatar();
+		$alliances = $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance')
 			->searchAlliancesByGameroundIdAndName($avatar->getGameroundId(), $name);
-		return $serviceManager->get('Doctrine')->toArray($alliances);
+		return $serviceManager->get('\DragonJsonServerDoctrine\Service\Doctrine')->toArray($alliances);
 	}
 	
 	/**
@@ -152,8 +152,8 @@ class Alliance
 	{
 		$serviceManager = $this->getServiceManager();
 		
-		$allianceavatar = $serviceManager->get('Allianceavatar')->getAllianceavatar();
-		$serviceAlliance = $serviceManager->get('Alliance');
+		$allianceavatar = $serviceManager->get('\DragonJsonServerAlliance\Service\Allianceavatar')->getAllianceavatar();
+		$serviceAlliance = $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance');
 		$alliance = $serviceAlliance->getAllianceByAllianceId($allianceavatar->getAllianceId());
 		$serviceAlliance->changeDescription($alliance, $description);
 	}

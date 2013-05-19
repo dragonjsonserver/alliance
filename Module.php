@@ -54,11 +54,11 @@ class Module
 	    			return;
 	    		}
 	    		$serviceManager = $this->getServiceManager();
-	    		$avatar = $serviceManager->get('Avatar')->getAvatar();
+	    		$avatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatar();
 	    		if (null === $avatar) {
 	    			throw new \DragonJsonServer\Exception('missing avatar');
 	    		}
-	    		$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
+	    		$serviceAllianceavatar = $serviceManager->get('\DragonJsonServerAlliance\Service\Allianceavatar');
 	    		$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatar($avatar);
 	    		$serviceAllianceavatar->setAllianceavatar($allianceavatar);
 	    		$role = $allianceavatar->getRole();
@@ -85,11 +85,11 @@ class Module
 	    			return;
 	    		}
 	    		$serviceManager = $this->getServiceManager();
-	    		$avatar = $serviceManager->get('Avatar')->getAvatar();
+	    		$avatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatar();
 	    		if (null === $avatar) {
 	    			throw new \DragonJsonServer\Exception('missing avatar');
 	    		}
-	    		$allianceavatar = $serviceManager->get('Allianceavatar')->getAllianceavatarByAvatar($avatar, false);
+	    		$allianceavatar = $serviceManager->get('\DragonJsonServerAlliance\Service\Allianceavatar')->getAllianceavatarByAvatar($avatar, false);
 	    		if (null === $allianceavatar) {
 	    			return;
 	    		}
@@ -102,7 +102,7 @@ class Module
 		$sharedManager->attach('DragonJsonServerAvatar\Service\Avatar', 'RemoveAvatar',
 			function (\DragonJsonServerAvatar\Event\RemoveAvatar $eventRemoveAvatar) {
 				$serviceManager = $this->getServiceManager();
-				$serviceAllianceavatar = $serviceManager->get('Allianceavatar');
+				$serviceAllianceavatar = $serviceManager->get('\DragonJsonServerAlliance\Service\Allianceavatar');
 				$allianceavatar = $serviceAllianceavatar->getAllianceavatarByAvatar($eventRemoveAvatar->getAvatar(), false);
 				if (null === $allianceavatar) {
 					return;
@@ -110,7 +110,7 @@ class Module
 				if ($serviceAllianceavatar->validateSecondLeader($allianceavatar, false)) {
 					$serviceAllianceavatar->removeAllianceavatar($allianceavatar);
 				} else {
-					$serviceAlliance = $serviceManager->get('Alliance');
+					$serviceAlliance = $serviceManager->get('\DragonJsonServerAlliance\Service\Alliance');
 					$alliance = $serviceAlliance->getAllianceByAllianceId($allianceavatar->getAllianceId());
 					$serviceAlliance->removeAlliance($alliance);
 				}

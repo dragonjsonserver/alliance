@@ -81,10 +81,10 @@ class Alliance
 			->setGameroundId($avatar->getGameroundId())
 			->setTag($tag)
 			->setName($name);
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($avatar, $alliance) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($avatar, $alliance) {
 			$entityManager->persist($alliance);
 			$entityManager->flush();
-			$allianceavatar = $this->getServiceManager()->get('Allianceavatar')->createAllianceavatar($avatar, $alliance, 'leader');
+			$allianceavatar = $this->getServiceManager()->get('\DragonJsonServerAlliance\Service\Allianceavatar')->createAllianceavatar($avatar, $alliance, 'leader');
 			$this->getEventManager()->trigger(
 				(new \DragonJsonServerAlliance\Event\CreateAlliance())
 					->setTarget($this)
@@ -104,13 +104,13 @@ class Alliance
 	{
 		$entityManager = $this->getEntityManager();
 
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($alliance) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($alliance) {
 			$this->getEventManager()->trigger(
 				(new \DragonJsonServerAlliance\Event\RemoveAlliance())
 					->setTarget($this)
 					->setAlliance($alliance)
 			);
-			$serviceAllianceavatar = $this->getServiceManager()->get('Allianceavatar');
+			$serviceAllianceavatar = $this->getServiceManager()->get('\DragonJsonServerAlliance\Service\Allianceavatar');
 			$allianceavatars = $serviceAllianceavatar->getAllianceavatarsByAllianceId($alliance->getAllianceId());
 			foreach ($allianceavatars as $allianceavatar) {
 				$serviceAllianceavatar->removeAllianceavatar($allianceavatar);

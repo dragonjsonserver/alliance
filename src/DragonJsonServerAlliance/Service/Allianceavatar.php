@@ -65,7 +65,7 @@ class Allianceavatar
 			->setAvatar($avatar)
 			->setAllianceId($alliance->getAllianceId())
 			->setRole($role);
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($alliance, $allianceavatar) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($alliance, $allianceavatar) {
 			$entityManager->persist($allianceavatar);
 			$entityManager->flush();
 			$this->getEventManager()->trigger(
@@ -87,7 +87,7 @@ class Allianceavatar
 	{
 		$entityManager = $this->getEntityManager();
 
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($allianceavatar) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($allianceavatar) {
 			$this->getEventManager()->trigger(
 				(new \DragonJsonServerAlliance\Event\RemoveAllianceavatar())
 					->setTarget($this)
